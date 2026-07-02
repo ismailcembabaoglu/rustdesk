@@ -48,7 +48,11 @@ jobs:
           sed -i 's|ProductName = "RustDesk"|ProductName = "Aptivadesk"|' Cargo.toml libs/portable/Cargo.toml
           sed -i 's|FileDescription = "RustDesk Remote Desktop"|FileDescription = "Aptivadesk Remote Desktop"|' Cargo.toml libs/portable/Cargo.toml
           sed -i 's|OriginalFilename = "rustdesk.exe"|OriginalFilename = "aptivadesk.exe"|' Cargo.toml libs/portable/Cargo.toml
+          # UI: tab bar title (hardcoded, not translated). All translate() strings are
+          # auto-rebranded at runtime because APP_NAME != "RustDesk" (see src/lang.rs).
+          sed -i 's|"RustDesk",|"Aptivadesk",|' flutter/lib/desktop/widgets/tabbar_widget.dart
           echo "=== branding verify ==="
+          grep -n 'Aptivadesk' flutter/lib/desktop/widgets/tabbar_widget.dart
           grep -n 'Aptivadesk' "$CFG"
           grep -n 'RENDEZVOUS_SERVERS\|RS_PUB_KEY' "$CFG"
 
